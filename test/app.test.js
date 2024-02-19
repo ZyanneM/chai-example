@@ -1,7 +1,7 @@
 const Cube = require('../src/app').Cube;
 const expect = require('chai').expect;
-const ShoppingCart = require('../src/app').ShoppingCart;
-const Item = require('../src/app').Item;
+const { describe } = require('mocha');
+const { Item, ShoppingCart, Discount, Stock } = require('../src/app');
 
 describe('ShoppingCart', () => {
     let cart;
@@ -10,7 +10,6 @@ describe('ShoppingCart', () => {
         cart = new ShoppingCart();
     });
 
-    // On aurait pu ici vérifier si le tableau n'était pas vide et rempli avec les bons types
     describe('addItem', () => {
         it('should add an item to the cart', () => {
             const item = new Item('Livre', 2, 20);
@@ -25,7 +24,6 @@ describe('ShoppingCart', () => {
             const item2 = new Item('Chaussures', 1, 50);
             cart.addItem(item1);
             cart.addItem(item2);
-            console.log(cart.sumOfItems());
             expect(cart.sumOfItems()).to.equal(90);
         });
 
@@ -34,8 +32,6 @@ describe('ShoppingCart', () => {
         });
     });
 
-
-// Partir d'un objet plus complexe avec plus d'articles
     describe('removeItem', () => {
         it('should remove an item from the cart', () => {
             const item = new Item('Livre', 2, 20);
@@ -53,6 +49,17 @@ describe('ShoppingCart', () => {
         });
     });
 
+    describe('addDiscountToItem', () => {
+        it('should apply the discount correctly', () => {
+            const item = new Item('Livre', 1, 100);
+            const discount = new Discount(20);
+            console.log('ITEM',item.price);
+            const newPrice = cart.addDiscountToItem(discount, item);
+            console.log('NEW PRICE',newPrice);
+            expect(newPrice).to.equal(80);
+        });
+    });
+
     describe('clearShoppingCart', () => {
         it('should remove all items from the cart', () => {
             const item1 = new Item('Livre', 2, 20);
@@ -65,4 +72,33 @@ describe('ShoppingCart', () => {
     });
 });
 
+describe('Stock', () => {
+    it('should return the total of items in the stock', () => {
+
+        const itemsData = [
+            new Item('Livre', 2, 20),
+            new Item('Chaussures', 1, 50),
+            new Item('Fraises', 2, 8),
+            new Item('Fromage', 1, 5),
+            new Item('Céréales', 2, 6),
+            new Item("Jus d'orange", 1, 5) // Remove the semicolon here
+        ];
+
+        const stock = new Stock();
+
+        itemsData.forEach(itemData => {
+            const item = new Item(itemData.name, itemData.quantity, itemData.price);
+            stock.addItem(item);
+
+        })
+        const totalQuantity = stock.getTotalQuantity();
+        expect(totalQuantity).to.equal(9);
+});
+});
 // On aurait pu tester si on rentre le mauvais type, multiplier les cas d'utilisation (nombres négatifs par ex) checker régulièrement le type de data qu'on a
+
+//TESTS DE NON REGRESSION
+// Ex : vérifier les perfs de l'API, vérifier que les calculs ont la même précisions, qu'un type n'a pas sauté etc
+
+//TESTS END TO END
+//Tests fonctionnels comme Cypress ou Selenium
