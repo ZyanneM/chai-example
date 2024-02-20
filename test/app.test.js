@@ -76,7 +76,13 @@ describe ('applyDiscount', () => {
         const newPrice = cart.addDiscountToItem(discount, item1);
         console.log('NEW PRICE', newPrice);
         expect(newPrice).to.equal(80);
-    })
+    }),
+    it('should not have a negative price after discount', () => {
+        const item = new Item('Babiole', 1, 10);
+        const discount = new Discount(20);
+        const newPrice = cart.addDiscountToItem(discount, item);
+        expect(newPrice).to.be.at.least(0);
+    });
 });
 
 describe('Stock', () => {
