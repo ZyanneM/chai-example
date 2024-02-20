@@ -110,7 +110,6 @@ class ShoppingCart {
     }
 
     addDiscountToItem(discount, item) {
-
         const discountAmount = (item.price * (discount.discount / 100));
         const afterDiscount = item.price - discountAmount;
         

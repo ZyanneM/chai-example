@@ -75,12 +75,18 @@ describe('ShoppingCart', () => {
 });
 
 describe ('applyDiscount', () => {
+    let cart;
+
+    beforeEach(() => {
+        cart = new ShoppingCart();
+    });
+
     it('should apply discount on Item', () => {
-        const item1 = new Item('Livre', 2, 100, false);
+        const item1 = new Item('Livre', 1, 100);
         const discount = new Discount(20);
         console.log('ITEM PRICE', item1.price);
         console.log('DISCOUNT', discount.discount);
-        const newPrice = discount.addDiscountToItem(item1, discount);
+        const newPrice = cart.addDiscountToItem(discount, item1);
         console.log('NEW PRICE', newPrice);
         expect(newPrice).to.equal(80);
     })
