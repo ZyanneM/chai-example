@@ -73,14 +73,14 @@ describe('ShoppingCart', () => {
         });
     });
 // REMISES V2
-    // it('should apply discount on Item', () => {
-    //     const item1 = new Item(1, 'Livre', 2, 100);
-    //     const discount = (20/100)
-    //     console.log('ITEM PRICE', item1.price);
-    //     newItemPrice = item1.price - (item1.price * discount);
-    //     console.log('newItemPrice', newItemPrice);
-    //     expect(newItemPrice == 80);
-    // })
+    it('should apply discount on Item', () => {
+        const item1 = new Item(1, 'Livre', 2, 100);
+        const discount = (20/100)
+        console.log('ITEM PRICE', item1.price);
+        newItemPrice = item1.price - (item1.price * discount);
+        console.log('newItemPrice', newItemPrice);
+        expect(newItemPrice == 80);
+    })
 });
 
 describe('Stock', () => {
@@ -127,14 +127,12 @@ describe('Stock', () => {
         itemsData.forEach(item => {
             console.log(item.expirationDate);
         })
-                
+            
         const stock = new Stock();
-
         const currentDate = new Date();
-            itemsData.forEach(itemData => {
-                const item = new Item(itemData.name, itemData.quantity, itemData.price, itemData.food, itemData.daysUntilExpiration, currentDate);
-                stock.addItem(item);
-            })
+        itemsData.forEach(itemData => {
+            const item = new Item(itemData.name, itemData.quantity, itemData.price, itemData.food, itemData.daysUntilExpiration, currentDate);
+            stock.addItem(item);
         })
         const totalQuantity = stock.getTotalQuantity();
         expect(totalQuantity).to.equal(9);
@@ -150,6 +148,8 @@ it('should not have a negative total quantity', function() {
     const totalQuantity = stock.getTotalQuantity();
 
     expect(totalQuantity).to.equal(0);
+});
+
 });
 // On aurait pu tester si on rentre le mauvais type, multiplier les cas d'utilisation (nombres négatifs par ex) checker régulièrement le type de data qu'on a
 
