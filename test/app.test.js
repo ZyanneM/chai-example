@@ -1,7 +1,7 @@
 const Cube = require('../src/app').Cube;
 const expect = require('chai').expect;
 const { describe } = require('mocha');
-const { Item, ShoppingCart, Discount, Stock } = require('../src/app');
+const { Item, ShoppingCart, Stock, Discount } = require('../src/app');
 
 describe('ShoppingCart', () => {
     let cart;
@@ -49,6 +49,7 @@ describe('ShoppingCart', () => {
         });
     });
 
+    //REMISES V1
     describe('addDiscountToItem', () => {
         it('should apply the discount correctly', () => {
             const item = new Item('Livre', 1, 100);
@@ -71,6 +72,15 @@ describe('ShoppingCart', () => {
             expect(cart.items).to.be.empty;
         });
     });
+// REMISES V2
+    // it('should apply discount on Item', () => {
+    //     const item1 = new Item(1, 'Livre', 2, 100);
+    //     const discount = (20/100)
+    //     console.log('ITEM PRICE', item1.price);
+    //     newItemPrice = item1.price - (item1.price * discount);
+    //     console.log('newItemPrice', newItemPrice);
+    //     expect(newItemPrice == 80);
+    // })
 });
 
 describe('Stock', () => {
@@ -118,14 +128,13 @@ describe('Stock', () => {
             console.log(item.expirationDate);
         })
                 
-
-
         const stock = new Stock();
 
-        itemsData.forEach(itemData => {
-            const item = new Item(itemData.name, itemData.quantity, itemData.price, itemData.food);
-            stock.addItem(item);
-
+        const currentDate = new Date();
+            itemsData.forEach(itemData => {
+                const item = new Item(itemData.name, itemData.quantity, itemData.price, itemData.food, itemData.daysUntilExpiration, currentDate);
+                stock.addItem(item);
+            })
         })
         const totalQuantity = stock.getTotalQuantity();
         expect(totalQuantity).to.equal(9);
@@ -141,8 +150,6 @@ it('should not have a negative total quantity', function() {
     const totalQuantity = stock.getTotalQuantity();
 
     expect(totalQuantity).to.equal(0);
-});
-
 });
 // On aurait pu tester si on rentre le mauvais type, multiplier les cas d'utilisation (nombres négatifs par ex) checker régulièrement le type de data qu'on a
 

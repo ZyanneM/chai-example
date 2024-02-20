@@ -15,25 +15,26 @@ class Cube {
         return Math.pow(this.length, 3);
     }
 }
-
 class Item {
-    constructor(id, name, quantity, price, food = false, daysUntilExpiration = 0) {
-        this.id = id;
+    constructor(name, quantity, price, food = false, daysUntilExpiration = 0, currentDate = new Date()) {
+        this.id = this.generateUniqueId();
         this.name = name;
         this.quantity = quantity;
         this.price = price;
         this.food = food;
 
         if (this.food) {
-            const today = new Date();
-            const expirationDate = new Date();
-            expirationDate.setDate(today.getDate() + daysUntilExpiration);
+            const expirationDate = new Date(currentDate.getTime() + daysUntilExpiration * 24 * 60 * 60 * 1000);
             this.expirationDate = expirationDate.toDateString();
         }
     }
+
+    generateUniqueId() {
+        return '_' + Math.random().toString(36).substr(2, 9);
+    }
 }
 
-
+//REMISES V1
 class Discount {
     constructor(discount) {
         this.discount = discount;
@@ -99,6 +100,7 @@ class ShoppingCart {
         return total;
     }
 
+    //REMISES V1
     addDiscountToItem(discount, item) {
 
         const discountAmount = (item.price * (discount.discount / 100));
@@ -113,5 +115,5 @@ class ShoppingCart {
 }
 
 module.exports = {
-    Cube, Item, ShoppingCart, Discount, Stock
+    Cube, Item, ShoppingCart, Stock, Discount
 }
