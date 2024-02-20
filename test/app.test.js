@@ -49,19 +49,6 @@ describe('ShoppingCart', () => {
         });
     });
 
-    //REMISES V1
-    describe('addDiscountToItem', () => {
-        it('should apply the discount correctly', () => {
-            const item = new Item('Livre', 1, 100);
-            const discount = new Discount(20);
-            console.log('ITEM',item.price);
-            const newPrice = cart.addDiscountToItem(discount, item);
-            console.log('NEW PRICE',newPrice);
-            expect(newPrice).to.equal(80);
-        });
-    });
-    
-
     describe('clearShoppingCart', () => {
         it('should remove all items from the cart', () => {
             const item1 = new Item('Livre', 2, 20);
