@@ -79,9 +79,10 @@ describe ('applyDiscount', () => {
         const item1 = new Item('Livre', 2, 100, false);
         const discount = new Discount(20);
         console.log('ITEM PRICE', item1.price);
-        newItemPrice = item1.price - (item1.price * discount.discount);
-        console.log('newItemPrice', newItemPrice);
-        expect(newItemPrice).to.equal(80);
+        console.log('DISCOUNT', discount.discount);
+        const newPrice = item1.price - ( item1.price * (discount.discount/100));
+        console.log('NEW PRICE', newPrice);
+        expect(newPrice).to.equal(80);
     })
 });
 
