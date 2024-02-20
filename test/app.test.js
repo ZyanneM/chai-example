@@ -72,16 +72,18 @@ describe('ShoppingCart', () => {
             expect(cart.items).to.be.empty;
         });
     });
-// REMISES V2
-    it('should apply discount on Item', () => {
-        const item1 = new Item(1, 'Livre', 2, 100);
-        const discount = (20/100)
-        console.log('ITEM PRICE', item1.price);
-        newItemPrice = item1.price - (item1.price * discount);
-        console.log('newItemPrice', newItemPrice);
-        expect(newItemPrice == 80);
-    })
 });
+
+describe ('applyDiscount', () => {
+    it('should apply discount on Item', () => {
+        const item1 = new Item('Livre', 2, 100, false);
+        const discount = new Discount(20);
+        console.log('ITEM PRICE', item1.price);
+        newItemPrice = item1.price - (item1.price * discount.discount);
+        console.log('newItemPrice', newItemPrice);
+        expect(newItemPrice === 80);
+    })
+})
 
 describe('Stock', () => {
     it('should add an item to the stock', function() {
