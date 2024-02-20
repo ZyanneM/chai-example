@@ -83,6 +83,15 @@ describe ('applyDiscount', () => {
         const newPrice = cart.addDiscountToItem(discount, item);
         expect(newPrice).to.be.at.least(0);
     });
+    it('should apply discount only once', () => {
+        const item = new Item('Jolie Babiole', 1, 100);
+        const discount = new Discount(20);
+        const newPrice = cart.addDiscountToItem(discount, item);
+        expect(newPrice).to.equal(80);
+    
+        const newPriceAfterSecondDiscount = cart.addDiscountToItem(discount, item);
+        expect(newPriceAfterSecondDiscount).to.equal(80);
+    });
 });
 
 describe('Stock', () => {
