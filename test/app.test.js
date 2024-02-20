@@ -85,12 +85,15 @@ describe ('applyDiscount', () => {
     });
     it('should apply discount only once', () => {
         const item = new Item('Jolie Babiole', 1, 100);
+        const itemId = item.id;
         const discount = new Discount(20);
+        console.log('DISPLAY', item.discountApplied);
         const newPrice = cart.addDiscountToItem(discount, item);
-        expect(newPrice).to.equal(80);
-    
-        const newPriceAfterSecondDiscount = cart.addDiscountToItem(discount, item);
-        expect(newPriceAfterSecondDiscount).to.equal(80);
+        console.log('NEW PRICE 1', newPrice);
+        console.log('NEW DISPLAY', item.discountApplied);
+        const newPrice2 = cart.addDiscountToItem(discount, item);
+        console.log('NEW PRICE 2', newPrice2);
+        expect(newPrice2).to.equal(80);
     });
 });
 

@@ -16,13 +16,14 @@ class Cube {
     }
 }
 class Item {
-    constructor(name, quantity, price, food = false, daysUntilExpiration = 0, currentDate = new Date()) {
+    constructor(name, quantity, price, food = false, daysUntilExpiration = 0, currentDate = new Date(), discountApplied = false) {
         this.id = this.generateUniqueId();
         this.name = name;
         this.quantity = quantity;
         this.price = price;
         this.food = food;
         this.daysUntilExpiration = daysUntilExpiration;
+        this.discountApplied = discountApplied;
 
         if (this.food) {
             const expirationDate = new Date(currentDate.getTime() + daysUntilExpiration * 24 * 60 * 60 * 1000);
@@ -110,10 +111,14 @@ class ShoppingCart {
     }
 
     addDiscountToItem(discount, item) {
+        if (item.discountApplied) {
+            return item.price;
+        }
         const discountAmount = (item.price * (discount.discount / 100));
         const afterDiscount = item.price - discountAmount;
-        
-        return afterDiscount;
+        item.price = afterDiscount;
+        item.discountApplied = true;
+        return item.price;
     }
 
     clearShoppingCart() {
