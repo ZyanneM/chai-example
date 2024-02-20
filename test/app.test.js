@@ -123,6 +123,19 @@ describe ('applyDiscount', () => {
         // const test = cart.hasDiscountBeenApplied(testItemId, items);
         // expect(test).to.equal(true);
     });
+    it('should verify if discount exist', () => {
+        const discounts = [
+            new Discount(20),
+            new Discount(10),
+            new Discount(20)
+        ]
+
+        const testId = discounts[0].id;
+        const discount = discounts.find(discount => discount.id === testId);
+        expect(discount).to.not.be.undefined;
+
+      });
+
 });
 
 describe('Stock', () => {
