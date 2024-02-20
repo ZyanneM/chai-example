@@ -81,9 +81,9 @@ describe ('applyDiscount', () => {
         console.log('ITEM PRICE', item1.price);
         newItemPrice = item1.price - (item1.price * discount.discount);
         console.log('newItemPrice', newItemPrice);
-        expect(newItemPrice === 80);
+        expect(newItemPrice).to.equal(80);
     })
-})
+});
 
 describe('Stock', () => {
     it('should add an item to the stock', function() {
