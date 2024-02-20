@@ -24,6 +24,7 @@ class Item {
         this.food = food;
         this.daysUntilExpiration = daysUntilExpiration;
         this.discountApplied = discountApplied;
+        this.discounts = [];
 
         if (this.food) {
             const expirationDate = new Date(currentDate.getTime() + daysUntilExpiration * 24 * 60 * 60 * 1000);
@@ -39,15 +40,11 @@ class Item {
 //REMISES V1
 class Discount {
     constructor(discount) {
+        this.id = this.generateUniqueId();
         this.discount = discount;
     }
-
-    addDiscountToItem(discount, item) {
-
-        const discountAmount = (item.price * (discount.discount / 100));
-        const afterDiscount = item.price - discountAmount;
-        
-        return afterDiscount;
+    generateUniqueId() {
+        return '_' + Math.random().toString(36).substr(2, 9);
     }
 }
 
@@ -111,14 +108,26 @@ class ShoppingCart {
     }
 
     addDiscountToItem(discount, item) {
-        if (item.discountApplied) {
+        if (item.discounts.includes(discount.id)) {
             return item.price;
         }
+    
         const discountAmount = (item.price * (discount.discount / 100));
         const afterDiscount = item.price - discountAmount;
         item.price = afterDiscount;
+        item.discounts.push(discount.id);
+    
         item.discountApplied = true;
         return item.price;
+    }
+
+    hasDiscountBeenApplied(itemId, items) {
+        for (let item of items) {
+            if (item.id === itemId && item.discountApplied) {
+                return true;
+            }
+        }
+        return false;
     }
 
     clearShoppingCart() {

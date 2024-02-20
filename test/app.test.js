@@ -95,6 +95,34 @@ describe ('applyDiscount', () => {
         console.log('NEW PRICE 2', newPrice2);
         expect(newPrice2).to.equal(80);
     });
+    it('item with specific id has already discounted', () => {
+        const items = [
+            new Item('Livre', 2, 20),
+            new Item('Chaussures', 1, 100),
+            new Item('Fraises', 2, 8, true, 7),
+            new Item('Fromage', 1, 5, true, 14),
+            new Item('Céréales', 2, 6, true, 30),
+            new Item("Jus d'orange", 1, 5, true, 5)
+        ]
+        const testItem = items[1];
+        const testItemId = testItem.id;
+        const discount = new Discount(20);
+        const discount2 = new Discount(10);
+        console.log('DISPLAY', testItem.discountApplied);
+        const newPrice = cart.addDiscountToItem(discount, testItem);
+        console.log('NEW PRICE 1', newPrice);
+        console.log('NEW DISPLAY', testItem.discountApplied);
+        const newPrice2 = cart.addDiscountToItem(discount,testItem);
+        console.log('NEW PRICE 2', newPrice2);
+        const newPrice3 = cart.addDiscountToItem(discount2, testItem);
+        console.log('NEW PRICE 3', newPrice3);
+        const newPrice4 = cart.addDiscountToItem(discount, testItem);
+        console.log('NEW PRICE 4', newPrice4);
+        expect(newPrice4).to.equal(72);
+
+        // const test = cart.hasDiscountBeenApplied(testItemId, items);
+        // expect(test).to.equal(true);
+    });
 });
 
 describe('Stock', () => {
