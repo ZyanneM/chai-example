@@ -40,6 +40,14 @@ class Discount {
     constructor(discount) {
         this.discount = discount;
     }
+
+    addDiscountToItem(discount, item) {
+
+        const discountAmount = (item.price * (discount.discount / 100));
+        const afterDiscount = item.price - discountAmount;
+        
+        return afterDiscount;
+    }
 }
 
 class Stock {
@@ -101,7 +109,6 @@ class ShoppingCart {
         return total;
     }
 
-    //REMISES V1
     addDiscountToItem(discount, item) {
 
         const discountAmount = (item.price * (discount.discount / 100));

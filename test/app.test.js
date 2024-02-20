@@ -80,7 +80,7 @@ describe ('applyDiscount', () => {
         const discount = new Discount(20);
         console.log('ITEM PRICE', item1.price);
         console.log('DISCOUNT', discount.discount);
-        const newPrice = item1.price - ( item1.price * (discount.discount/100));
+        const newPrice = discount.addDiscountToItem(item1, discount);
         console.log('NEW PRICE', newPrice);
         expect(newPrice).to.equal(80);
     })
