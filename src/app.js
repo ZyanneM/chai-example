@@ -22,6 +22,7 @@ class Item {
         this.quantity = quantity;
         this.price = price;
         this.food = food;
+        this.daysUntilExpiration = daysUntilExpiration;
 
         if (this.food) {
             const expirationDate = new Date(currentDate.getTime() + daysUntilExpiration * 24 * 60 * 60 * 1000);
