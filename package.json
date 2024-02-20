@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/rmess/Chai-example#readme",
   "dependencies": {
-    "chai": "^4.3.7",
-    "mocha": "^10.1.0",
+    "chai": "^4.4.1",
+    "mocha": "^10.3.0",
     "save-dev": "^0.0.1-security"
   }
 }

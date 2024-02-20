@@ -59,6 +59,7 @@ describe('ShoppingCart', () => {
             expect(newPrice).to.equal(80);
         });
     });
+    
 
     describe('clearShoppingCart', () => {
         it('should remove all items from the cart', () => {
@@ -73,6 +74,36 @@ describe('ShoppingCart', () => {
 });
 
 describe('Stock', () => {
+    it('should add an item to the stock', function() {
+        const stock = new Stock();
+        const item = new Item('Test Item', 100, 1);
+
+        stock.addItem(item);
+
+        expect(stock.items).to.include(item);
+    });
+
+    it('should remove an item from the stock', function() {
+        const stock = new Stock();
+        const item = new Item('Test Item', 100, 1);
+    
+        stock.addItem(item);
+        stock.removeItem(item.name);
+    
+        expect(stock.items).to.not.include(item);
+    });
+
+    it('should return the correct total quantity after adding an item', function() {
+        const stock = new Stock();
+        const item = new Item('Test Item', 100, 1);
+    
+        stock.addItem(item);
+    
+        const totalQuantity = stock.getTotalQuantity();
+    
+        expect(totalQuantity).to.equal(item.quantity);
+    });
+
     it('should return the total of items in the stock', () => {
 
         const itemsData = [
@@ -94,6 +125,19 @@ describe('Stock', () => {
         const totalQuantity = stock.getTotalQuantity();
         expect(totalQuantity).to.equal(9);
 });
+
+it('should not have a negative total quantity', function() {
+    const stock = new Stock();
+    const item = new Item('Test Item', 100, 1);
+
+    stock.addItem(item);
+    stock.removeItem(item.name, item.quantity + 1);
+
+    const totalQuantity = stock.getTotalQuantity();
+
+    expect(totalQuantity).to.equal(0);
+});
+
 });
 // On aurait pu tester si on rentre le mauvais type, multiplier les cas d'utilisation (nombres négatifs par ex) checker régulièrement le type de data qu'on a
 
