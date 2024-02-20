@@ -17,12 +17,22 @@ class Cube {
 }
 
 class Item {
-    constructor(name, quantity, price) {
+    constructor(id, name, quantity, price, food = false, daysUntilExpiration = 0) {
+        this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+        this.food = food;
+
+        if (this.food) {
+            const today = new Date();
+            const expirationDate = new Date();
+            expirationDate.setDate(today.getDate() + daysUntilExpiration);
+            this.expirationDate = expirationDate.toDateString();
+        }
     }
 }
+
 
 class Discount {
     constructor(discount) {

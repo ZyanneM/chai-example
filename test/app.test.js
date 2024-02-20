@@ -109,16 +109,21 @@ describe('Stock', () => {
         const itemsData = [
             new Item('Livre', 2, 20),
             new Item('Chaussures', 1, 50),
-            new Item('Fraises', 2, 8),
-            new Item('Fromage', 1, 5),
-            new Item('Céréales', 2, 6),
-            new Item("Jus d'orange", 1, 5) // Remove the semicolon here
+            new Item('Fraises', 2, 8, true, 7),
+            new Item('Fromage', 1, 5, true, 14),
+            new Item('Céréales', 2, 6, true, 30),
+            new Item("Jus d'orange", 1, 5, true, 5)
         ];
+        itemsData.forEach(item => {
+            console.log(item.expirationDate);
+        })
+                
+
 
         const stock = new Stock();
 
         itemsData.forEach(itemData => {
-            const item = new Item(itemData.name, itemData.quantity, itemData.price);
+            const item = new Item(itemData.name, itemData.quantity, itemData.price, itemData.food);
             stock.addItem(item);
 
         })
